@@ -21,6 +21,13 @@ colnames(data_X) <- features_set
 colnames(data_Y) <- "activity_id"
 colnames(data_S) <- "subject"
 
+
+#reading in the activities
+
+activities <- read.table("activity_labels.txt")
+colnames(activities) <- c("activity_id", "activity")
+dataY <- merge(data_Y, activities)
+
 #Reading the measurements
 
 means <- grep("-mean\\(\\)", features_set, value=TRUE)
@@ -29,11 +36,7 @@ req_features <- c(means, stds)
 dataX <- data_X[, req_features]
 
 
-#reading in the activities
 
-activities <- read.table("activity_labels.txt")
-colnames(activities) <- c("activity_id", "activity")
-dataY <- merge(data_Y, activities)
 
 # Providing the data output
 
